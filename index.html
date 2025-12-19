@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowtime Focus</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Manifest & PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0a0a0a">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏳</text></svg>">
+</head>
+
+<body>
+
+    <div class="app-background"></div>
+
+    <main class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1 class="logo">Flowtime<span class="accent">.</span></h1>
+            <div class="status-badge" id="appStatus">Ready to Focus</div>
+        </header>
+
+        <!-- Timer Section -->
+        <section class="timer-section">
+            <div class="timer-display-container">
+                <div class="timer-ring"></div>
+                <h2 id="timerDisplay">00:00:00</h2>
+                <p id="timerLabel">Focus Time</p>
+            </div>
+
+            <!-- Task Input -->
+            <div class="task-input-container">
+                <input type="text" id="taskInput" placeholder="What are you working on?" autocomplete="off">
+            </div>
+
+            <!-- Main Controls -->
+            <div class="controls">
+                <button id="actionBtn" class="btn btn-primary">Start Focus</button>
+            </div>
+        </section>
+
+        <!-- History/Stats Section -->
+        <section class="history-section glass-panel">
+            <div class="history-header">
+                <h3>Session History</h3>
+                <div class="history-actions">
+                    <button class="icon-btn" id="statsBtn" title="View Stats">📊</button>
+                    <button class="icon-btn" id="clearBtn" title="Clear History">🗑️</button>
+                </div>
+            </div>
+
+            <div class="history-table-wrapper">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Time</th>
+                            <th>Duration</th>
+                            <th>Break</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyList">
+                        <!-- Items will be injected here -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state">
+                    No sessions yet. Start focusing!
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Break Modal (Hidden by default) -->
+    <div id="breakModal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <h2>Session Complete!</h2>
+            <p>You worked for <span id="modalWorkTime" class="highlight-text">00:00:00</span></p>
+
+            <div class="break-input-group">
+                <label>Take a break for (minutes):</label>
+                <div class="preset-breaks">
+                    <button class="chip" data-min="5">5m</button>
+                    <button class="chip" data-min="10">10m</button>
+                    <button class="chip" data-min="15">15m</button>
+                </div>
+                <input type="number" id="breakInput" value="5" min="1" max="60">
+            </div>
+
+            <button id="startBreakBtn" class="btn btn-secondary">Start Break</button>
+        </div>
+    </div>
+
+    <!-- Alarm Overlay (Hidden by default) -->
+    <div id="alarmOverlay" class="overlay hidden">
+        <div class="alarm-content">
+            <h1>TIME'S UP!</h1>
+            <button id="stopAlarmBtn" class="btn btn-danger">Stop Alarm</button>
+        </div>
+    </div>
+
+    <!-- Hidden Audio -->
+    <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker Registered'));
+        }
+    </script>
+</body>
+
+</html>

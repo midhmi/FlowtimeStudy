@@ -1,0 +1,22 @@
+{
+  "name": "Flowtime Focus",
+  "short_name": "Flowtime",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#00e676",
+  "description": "A premium flowtime study timer.",
+  "icons": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait-primary"
+}
